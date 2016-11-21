@@ -21,7 +21,8 @@ function collect(val, memo) {
   return memo;
 }
 
-program.option('-d, --debug [port]', 'Set debugger port')
+program.option('-d, --debug [port]', 'Set debugger port');
+program.option('-h, --harmony', 'Enable harmony features');
 program.option('-o, --only [globs]', 'Matching files will be transpiled');
 program.option('-i, --ignore [globs]', 'Matching files will not be transpiled');
 program.option('-e, --extensions [extensions]', 'List of extensions to hook into [.es6,.js,.es,.jsx]');
@@ -249,6 +250,11 @@ function restartApp() {
   const runnerExecArgv = process.execArgv.slice();
   if (program.debug) {
     runnerExecArgv.push('--debug=' + program.debug);
+  }
+  
+  // Support for --harmony option
+  if (program.harmony) {
+    runnerExecArgv.push('--harmony');
   }
 
   const app = fork(path.resolve(__dirname, 'runner.js'), { execArgv: runnerExecArgv });
