@@ -104,6 +104,6 @@ process.on('message', (options) => {
   sourceMapSupport.install = () => {};
 
   pipeFd = fs.openSync(options.pipe, 'r');
-  process.argv = ["node"].concat(options.args);
+  process.argv = ["node", "--harmony"].concat(options.args);
   require('module').runMain();
 });
